@@ -99,3 +99,9 @@ Player 'X' move (e.g. 'row col' like '1 1'):
 Game over!
 The winner was 'X'!
 ```
+
+# Ideas for extensions
+
+* include a computer player that makes random moves.  Offer extra credit for students that improve it to never lose.
+* include support for wider boards.  The AI gets much more interesting then.
+* include a GUI version using swing
