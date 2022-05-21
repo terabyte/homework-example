@@ -1,5 +1,6 @@
 package org.cmyers.homework.tictactoe;
 
+import java.util.ArrayList;
 import org.cmyers.homework.tictactoe.exceptions.IllegalMoveException;
 import org.cmyers.homework.tictactoe.exceptions.WrongPlayerException;
 
@@ -72,4 +73,47 @@ public class Board {
     public void makeMove(char player, int row, int col) throws IllegalMoveException, WrongPlayerException, ArrayIndexOutOfBoundsException {
         // TODO: write your code here
     }
+
+    /**
+     * Get the the board and game state as a string suitable for printing
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        return this.toString(false);
+    }
+
+    /**
+     * Get the the board and game state as a string suitable for printing
+     *
+     * @param pretty if true, print using newlines and a pretty board layout, otherwise print as a single line.
+     * @return
+     */
+    public String toString(boolean pretty) {
+        StringBuilder sb = new StringBuilder();
+        if (pretty) {
+            sb.append("     0   1   2  \n");
+            sb.append("   =============\n");
+            sb.append(" 0 | " + board[0][0] + " | " + board[0][1] + " | " + board[0][2] + " |\n");
+            sb.append("   -------------\n");
+            sb.append(" 1 | " + board[1][0] + " | " + board[1][1] + " | " + board[1][2] + " |\n");
+            sb.append("   -------------\n");
+            sb.append(" 2 | " + board[2][0] + " | " + board[2][1] + " | " + board[2][2] + " |\n");
+            sb.append("   =============\n");
+            sb.append("   Player '" + (isXTurn ? "X" : "O") + "' turn\n");
+            sb.append("   =============\n");
+        } else {
+            sb.append("[board: {");
+
+            var rows = new ArrayList<String>();
+            for (int i = 0; i < 3; ++i) {
+                Arrays.stream(board).forEach(x -> rows.add(new String(x).replace(' ', '-')));
+            }
+            sb.append(String.join("|", rows));
+            sb.append("} turn: '" + (isXTurn ? "X" : "O") + "']");
+        }
+        return sb.toString();
+    }
+
 }
