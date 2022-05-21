@@ -3,12 +3,41 @@
  */
 package org.cmyers.homework.tictactoe;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import java.util.Scanner;
+import org.cmyers.tictactoe.Board;
+import org.cmyers.tictactoe.org.cmyers.tictactoe.exceptions.TicTacToeException;
 
+public class App {
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        System.out.println("Tic Tac Toe game");
+        Board b = new Board();
+        Scanner sc = new Scanner(System.in);
+        while(!b.isGameOver()) {
+            char currentPlayer = b.isXTurn() ? 'X' : 'O';
+            int row;
+            int col;
+            System.out.println("Board state: \n" + b.toString(true));
+            System.out.println("Player '" + currentPlayer + "' move (e.g. 'row col' like '1 1'): ");
+            try {
+                String[] inputs = sc.nextLine().split(" ");
+                row = Integer.parseInt(inputs[0]);
+                col = Integer.parseInt(inputs[1]);
+            } catch (NumberFormatException e) {
+                System.out.println("You must enter a move as two integers sparated by a space");
+                continue;
+            }
+            try {
+                b.makeMove(currentPlayer, row, col);
+            } catch (TicTacToeException | ArrayIndexOutOfBoundsException e) {
+                System.out.println("You must make a valid move - i.e. an unoccupied space, between 0 and 2");
+            }
+        }
+        System.out.println("Game over!");
+        char winner = b.getWinningPlayer();
+        if (winner == ' ') {
+            System.out.println("It was a tie!");
+            return;
+        }
+        System.out.println("The winner was '" + winner + "'!");
     }
 }
