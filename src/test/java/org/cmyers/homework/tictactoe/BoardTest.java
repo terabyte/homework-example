@@ -1,6 +1,5 @@
 package org.cmyers.homework.tictactoe;
 
-import org.cmyers.homework.tictactoe.exceptions.IllegalMoveException;
 import org.cmyers.homework.tictactoe.exceptions.WrongPlayerException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -72,8 +71,8 @@ public class BoardTest {
         Assertions.assertFalse(b.isXTurn(), "It should be player O's turn for the second move");
         Assertions.assertEquals(b.getBoardPosition(0, 0), 'X', "After a move, position 0,0 should be X");
         Assertions.assertThrows(WrongPlayerException.class, () -> b.makeMove('X', 1, 1), "Should throw if player X tries to go twice in a row");
-        Assertions.assertThrows(IllegalMoveException.class, () -> b.makeMove('O', 5, 0), "Should throw if player tries to make an invalid move");
-        Assertions.assertThrows(IllegalMoveException.class, () -> b.makeMove('O', 0, 5), "Should throw if player tries to make an invalid move");
+        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> b.makeMove('O', 5, 0), "Should throw if player tries to make an invalid move");
+        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> b.makeMove('O', 0, 5), "Should throw if player tries to make an invalid move");
         Assertions.assertEquals(b.getBoardPosition(1, 1), ' ', "After an invalid move, position 1,1 should still be empty");
 
         b.makeMove('O', 1, 1);
